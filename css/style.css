@@ -1,0 +1,24 @@
+#sheet {
+  border: 1px solid black;
+}
+
+#draw {
+  display: flex;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+input {
+  width: inherit;
+  height: inherit;
+}
+
+#tools div {
+  width: 2em;
+  height: 2em;
+  border: 1px solid black;
+  color: black;
+  font-size: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=style.css.map */
