@@ -102,18 +102,10 @@ class Draw {
         }
     }
 
-    /**
-     *
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @param color
-     */
     drawLine(x1, y1, x2, y2) {
         this.ctx.beginPath();
 
-        if(!this.isGumMode){
+        if(this.isGumMode){
             console.log("coucou")
             this.ctx.strokeStyle = "#FFFFFF";
         }this.ctx.strokeStyle = this.color.value;

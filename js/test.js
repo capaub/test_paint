@@ -5,58 +5,52 @@ class Test {
     constructor(){
 
         this.drawMode = {
-            "rectangle": this.drawRectangle,
-            "triangle": this.drawTriangle,
-            "circle": this.drawCircle,
-            "pen": this.drawLine,
-            "text": this.drawText,
-            "gum": this.gum
-        };
+            pen : this.drawLine(this.startPos.x, this.startPos.y, this.currentPos.x, this.currentPos.y),
+            text : this.drawText,
+            // rectangle : this.drawRectangle,
+            // circle : this.drawCircle,
+            // triangle : this.drawTriangle,
+        }
 
         this.isMode = {
-            "gum": false,
-            "rectangle": false,
-            "triangle": false,
-            "circle": false,
-            "pen": false,
-            "text": false
-        };
+            gum : false,
+            pen : false,
+            text : false,
+            // rectangle : false,
+            // circle : false,
+            // triangle : false,
+        }
 
         this.sheet = document.querySelector("#sheet");
         this.ctx = this.sheet.getContext("2d");
-        this.ctx.lineWidth = 2;
+        this.lineWidth = 2;
         
-        this.color = document.getElementById("colorSet")            
-        this.color.addEventListener("change", this.setColor(colorSet.value))
+        this.color = document.getElementById("colorSet")
 
         this.width = window.innerWidth;
         this.height = window.innerHeight;
-        this.canvas = document.getElementById("areaDraw");
 
-        this.currentPos = {x: 0 , y: 0};
-        this.firstPos = {x:0 , y: 0};
-        this.secondPos = {x: 0, y: 0};
+        this.canvas = document.getElementById("areaDraw"
+
+        this.startPos = {x: 0, y: 0};
+        this.currentPos = {x: 0, y: 0};
+        // this.firstPos = {x:0, y: 0};
+        // this.secondPos = {x: 0, y: 0};
 
         this.text ='';
 
 
         // this.sheet.addEventListener('mousedown', this.currentPosition.bind(this));
         //                         //////// TEST ///////
-        this.sheet.addEventListener('mousedown', function(){
-            console.log(this.isMode[gum]);
+        this.sheet.addEventListener('mousedown',event => this.downDrawing(event));
+
+        this.sheet.addEventListener('mousemove', event =>this.moveDrawing(event));
+
+        this.sheet.addEventListener('mouseup', this.stopDrawing.bind(this){
 
             switch (true) {
                 case this.isMode.gum:
                     this.drawMode.gum();
-                    break;
-                case this.isMode.rectangle:
-                    this.drawMode.rectangle();
-                    break;
-                case this.isMode.triangle:
-                    this.drawMode.triangle();
-                    break;
-                case this.isMode.circle:
-                    this.drawMode.circle();
                     break;
                 case this.isMode.pen:
                     this.drawMode.pen();
@@ -64,24 +58,24 @@ class Test {
                 case this.isMode.text:
                     this.drawMode.text();
                     break;
+                // case this.isMode.rectangle:
+                //     this.drawMode.rectangle();
+                //     break;
+                // case this.isMode.circle:
+                //     this.drawMode.circle();
+                //     break;
+                // case this.isMode.triangle:
+                //     this.drawMode.triangle();
+                //     break;
                 default:
             }
         });
 
-        this.sheet.addEventListener('mousemove', function(){
+        this.sheet.addEventListener('mouseout', this.stopDrawing.bind(this){
 
             switch (true) {
                 case this.isMode.gum:
                     this.drawMode.gum();
-                    break;
-                case this.isMode.rectangle:
-                    this.drawMode.rectangle();
-                    break;
-                case this.isMode.triangle:
-                    this.drawMode.triangle();
-                    break;
-                case this.isMode.circle:
-                    this.drawMode.circle();
                     break;
                 case this.isMode.pen:
                     this.drawMode.pen();
@@ -89,97 +83,89 @@ class Test {
                 case this.isMode.text:
                     this.drawMode.text();
                     break;
+                // case this.isMode.rectangle:
+                //     this.drawMode.rectangle();
+                //     break;
+                // case this.isMode.circle:
+                //     this.drawMode.circle();
+                //     break;
+                // case this.isMode.triangle:
+                //     this.drawMode.triangle();
+                //     break;
                 default:
             }
         });
-
-        this.sheet.addEventListener('mouseup', function(){
-
-            switch (true) {
-                case this.isMode.gum:
-                    this.drawMode.gum();
-                    break;
-                case this.isMode.rectangle:
-                    this.drawMode.rectangle();
-                    break;
-                case this.isMode.triangle:
-                    this.drawMode.triangle();
-                    break;
-                case this.isMode.circle:
-                    this.drawMode.circle();
-                    break;
-                case this.isMode.pen:
-                    this.drawMode.pen();
-                    break;
-                case this.isMode.text:
-                    this.drawMode.text();
-                    break;
-                default:
-            }
-        });
-
-        this.sheet.addEventListener('mouseout', function(){
-
-            switch (true) {
-                case this.isMode.gum:
-                    this.drawMode.gum();
-                    break;
-                case this.isMode.rectangle:
-                    this.drawMode.rectangle();
-                    break;
-                case this.isMode.triangle:
-                    this.drawMode.triangle();
-                    break;
-                case this.isMode.circle:
-                    this.drawMode.circle();
-                    break;
-                case this.isMode.pen:
-                    this.drawMode.pen();
-                    break;
-                case this.isMode.text:
-                    this.drawMode.text();
-                    break;
-                default:
-            }
-        });
-    };
-
-
-
-    gum(){
-        
-    };
+    }
 
     downDrawing(e){
-        if(this.isMode.pen){
-        this.currentPosition(e);
+        switch (this.isMode) {
+            case this.isMode.gum:
+                this.drawMode.gum();
+                break;
+            case this.isMode.pen:
+                this.startPos.x = e.offsetX;
+                this.startPos.y = e.offsetY;
+                break;
+            case this.isMode.text:
+                this.drawMode.text();
+                break;
+            // case this.isMode.rectangle:
+            //     this.drawMode.rectangle();
+            //     break;
+            // case this.isMode.circle:
+            //     this.drawMode.circle();
+            //     break;
+            // case this.isMode.triangle:
+            //     this.drawMode.triangle();
+            //     break;
+            default:
         }
-    };
+    }
 
     moveDrawing(e) {
-        if(this.isMode.pen){
-            this.drawLine(this.ctx, this.currentPos.x, this.currentPos.y, e.offsetX, e.offsetY);
-            this.currentPosition(e);
+
+        switch (true) {
+            case this.isMode.gum:
+                this.drawMode.gum();
+                break;
+            case this.isMode.pen:
+                this.currentPos.x = e.offsetX;
+                this.currentPos.y = e.offsetY;
+                this.drawMode.pen();
+                break;
+            case this.isMode.text:
+                this.drawMode.text();
+                break;
+            // case this.isMode.rectangle:
+            //     this.drawMode.rectangle();
+            //     break;
+            // case this.isMode.circle:
+            //     this.drawMode.circle();
+            //     break;
+            // case this.isMode.triangle:
+            //     this.drawMode.triangle();
+            //     break;
+            default:
         }
-    };
+    }
 
     stopDrawing(e) {
-            this.drawLine(this.ctx, this.currentPos.x, this.currentPos.y, e.offsetX, e.offsetY);
+            this.drawLine(this.currentPos.x, this.currentPos.y, e.offsetX, e.offsetY);
             this.isMode.pen = false;
 
-    };
+    }
     
-    //////// TEST ///////
+    //////// les fonction pour stocker les positions  ///////
 
     currentPosition(e) {
         this.currentPos.x = e.offsetX;
         this.currentPos.y = e.offsetY;
-    };
+    }
 
     firstPosition(e) {
         this.firstPos.x = e.offsetX;
         this.firstPos.y = e.offsetY;
-    };
+    }
 
     secondPosition(e) {
         this.secondPos.x = e.offsetX;
@@ -187,21 +173,21 @@ class Test {
     }
 
 ////////////////////////////// LES FONCTIONS "tools" ////////////////////////////
-
-    setColor(color){ 
-        this.ctx.strokeStyle = color;
-    };
     
     upSizing() {
         this.ctx.lineWidth ++;
-    };
+    }
             
     downSizing() {this.ctx.lineWidth <= 1 ? this.ctx.lineWidth = 1 : this.ctx.lineWidth --;
-    };
+    }
     
     erase() {
         this.ctx.clearRect(0, 0, innerWidth, innerHeight);
-    };
+    }
+
+    gum() {
+        this.isMode.gum = true;
+    }
 
 ///////////////////////////  LES FONCTIONS DE DESSINS ///////////////////////////
     
@@ -209,10 +195,10 @@ class Test {
         this.ctx.beginPath();
         this.ctx.rect(x1, y1, x2 - x1, y2 - y1);
         this.ctx.stroke();
-    };
+    }
 
     drawTriangle(x1, y1, x2, y2, x3, y3) {
-        this.ctx.strokeStyle = this.setColor();
+        this.ctx.strokeStyle = this.color.value;
         this.ctx.beginPath();
         this.ctx.moveTo(x1, y1);
         this.ctx.lineTo(x2, y2);
@@ -220,31 +206,38 @@ class Test {
         this.ctx.fill();
         this.ctx.stroke();
         this.ctx.closePath();
-    };
+    }
 
     drawCircle(x, y, radius) {
-        this.ctx.strokeStyle = this.setColor();
+        this.ctx.strokeStyle = this.color.value;
         this.ctx.beginPath();
         this.ctx.arc(x, y, radius, 0, 2 * Math.PI);
         this.ctx.fill();
         this.ctx.stroke();
-    };
+    }
 
-    drawLine(ctx, x1, y1, x2, y2) {
-        ctx.beginPath();
-        ctx.strokeStyle = this.setColor(colorSet.value);
-        ctx.lineWidth = this.ctx.lineWidth;
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke();
-        ctx.closePath();
-    };
+    drawLine(x1, y1, x2, y2) {
+        this.ctx.beginPath();
+
+        if(this.isMode.gum){
+            console.log("coucou")
+            this.ctx.strokeStyle = "#FFFFFF";
+        }
+        this.ctx.strokeStyle = this.color.value;
+
+        this.ctx.lineWidth = this.lineWidth;
+        this.ctx.lineCap = "round";
+        this.ctx.moveTo(x1, y1);
+        this.ctx.lineTo(x2, y2);
+        this.ctx.stroke();
+        this.ctx.closePath();
+    }
 
     drawText() {
         this.isMode.text = true ;
         this.sheet.addEventListener('click',this.position.bind(this));
         document.addEventListener('keydown', e => {
-            if(this.isTextMode) {
+            if(this.isMode.text) {
                 if(e.key === 'Enter') {
                     this.isMode.text = false;
                     this.ctx.fillText(this.text, this.currentPos.x, this.currentPos.y);
@@ -252,10 +245,10 @@ class Test {
                     this.text = '';
                 } else {
                     this.text += e.key
-                };
-            };
+                }
+            }
         });
-    };
+    }
 
 ////////////////////////////// FONCTION RESIZE /////////////////////////////////
 
@@ -265,9 +258,9 @@ resizeCanvas() {
     this.canvas.innerHTML = `
         <canvas id="feuille" width="${this.width}" height="${this.height}"></canvas>
         `
-    };
+    }
 
-};
+}
 
 /////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// SCRIPT PRINCIPALE /////////////////////////////////
