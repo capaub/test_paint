@@ -94,7 +94,7 @@ class Draw {
             }
         }
     }
-
+    //  les deux fonction sont identiques => event ? up || out :
     upOrOutStopDrawing(e) {
         if (this.isDrawing) {
             this.drawLine(this.currentPos.x, this.currentPos.y, e.offsetX, e.offsetY);

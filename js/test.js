@@ -25,12 +25,12 @@ class Test {
         this.ctx = this.sheet.getContext("2d");
         this.lineWidth = 2;
         
-        this.color = document.getElementById("colorSet")
+        this.color = document.getElementById("colorSet");
 
         this.width = window.innerWidth;
         this.height = window.innerHeight;
 
-        this.canvas = document.getElementById("areaDraw"
+        this.canvas = document.getElementById("areaDraw");
 
         this.startPos = {x: 0, y: 0};
         this.currentPos = {x: 0, y: 0};
@@ -42,61 +42,14 @@ class Test {
 
         // this.sheet.addEventListener('mousedown', this.currentPosition.bind(this));
         //                         //////// TEST ///////
-        this.sheet.addEventListener('mousedown',event => this.downDrawing(event));
+        this.sheet.addEventListener('mousedown', this.downDrawing.bind(this));
 
-        this.sheet.addEventListener('mousemove', event =>this.moveDrawing(event));
+        this.sheet.addEventListener('mousemove', event => this.moveDrawing(event));
 
-        this.sheet.addEventListener('mouseup', this.stopDrawing.bind(this){
-
-            switch (true) {
-                case this.isMode.gum:
-                    this.drawMode.gum();
-                    break;
-                case this.isMode.pen:
-                    this.drawMode.pen();
-                    break;
-                case this.isMode.text:
-                    this.drawMode.text();
-                    break;
-                // case this.isMode.rectangle:
-                //     this.drawMode.rectangle();
-                //     break;
-                // case this.isMode.circle:
-                //     this.drawMode.circle();
-                //     break;
-                // case this.isMode.triangle:
-                //     this.drawMode.triangle();
-                //     break;
-                default:
-            }
-        });
-
-        this.sheet.addEventListener('mouseout', this.stopDrawing.bind(this){
-
-            switch (true) {
-                case this.isMode.gum:
-                    this.drawMode.gum();
-                    break;
-                case this.isMode.pen:
-                    this.drawMode.pen();
-                    break;
-                case this.isMode.text:
-                    this.drawMode.text();
-                    break;
-                // case this.isMode.rectangle:
-                //     this.drawMode.rectangle();
-                //     break;
-                // case this.isMode.circle:
-                //     this.drawMode.circle();
-                //     break;
-                // case this.isMode.triangle:
-                //     this.drawMode.triangle();
-                //     break;
-                default:
-            }
-        });
+        this.sheet.addEventListener('mouseup', event => this.stopDrawing(event));
+        this.sheet.addEventListener('mouseout', this.stopDrawing.bind(this));
     }
-
+    // => stock les coordonne de depart
     downDrawing(e){
         switch (this.isMode) {
             case this.isMode.gum:
@@ -122,6 +75,7 @@ class Test {
         }
     }
 
+    // => utilise les differentes fonctions switch case true / false
     moveDrawing(e) {
 
         switch (true) {
@@ -148,10 +102,32 @@ class Test {
             default:
         }
     }
-
+    // => stop le trait mais ne sort pas du mode
     stopDrawing(e) {
-            this.drawLine(this.currentPos.x, this.currentPos.y, e.offsetX, e.offsetY);
-            this.isMode.pen = false;
+        this.drawLine(this.currentPos.x, this.currentPos.y, e.offsetX, e.offsetY);
+        this.isMode.pen = false;
+        switch (true) {
+            case this.isMode.gum:
+                this.drawMode.gum();
+                break;
+            case this.isMode.pen:
+                this.drawMode.pen();
+                break;
+            case this.isMode.text:
+                this.drawMode.text();
+                break;
+            // case this.isMode.rectangle:
+            //     this.drawMode.rectangle();
+            //     break;
+            // case this.isMode.circle:
+            //     this.drawMode.circle();
+            //     break;
+            // case this.isMode.triangle:
+            //     this.drawMode.triangle();
+            //     break;
+            default:
+        }
+
 
     }
     
@@ -162,15 +138,15 @@ class Test {
         this.currentPos.y = e.offsetY;
     }
 
-    firstPosition(e) {
-        this.firstPos.x = e.offsetX;
-        this.firstPos.y = e.offsetY;
-    }
+    // firstPosition(e) {
+    //     this.firstPos.x = e.offsetX;
+    //     this.firstPos.y = e.offsetY;
+    // }
 
-    secondPosition(e) {
-        this.secondPos.x = e.offsetX;
-        this.secondPos.y = e.offsetY;
-    }
+    // secondPosition(e) {
+    //     this.secondPos.x = e.offsetX;
+    //     this.secondPos.y = e.offsetY;
+    // }
 
 ////////////////////////////// LES FONCTIONS "tools" ////////////////////////////
     
@@ -185,52 +161,52 @@ class Test {
         this.ctx.clearRect(0, 0, innerWidth, innerHeight);
     }
 
-    gum() {
-        this.isMode.gum = true;
-    }
+    // gum() {
+    //     this.isMode.gum = true;
+    // }
 
 ///////////////////////////  LES FONCTIONS DE DESSINS ///////////////////////////
     
-    drawRectangle( x1, y1, x2, y2) {
-        this.ctx.beginPath();
-        this.ctx.rect(x1, y1, x2 - x1, y2 - y1);
-        this.ctx.stroke();
-    }
+    // drawRectangle( x1, y1, x2, y2) {
+    //     this.ctx.beginPath();
+    //     this.ctx.rect(x1, y1, x2 - x1, y2 - y1);
+    //     this.ctx.stroke();
+    // }
 
-    drawTriangle(x1, y1, x2, y2, x3, y3) {
-        this.ctx.strokeStyle = this.color.value;
-        this.ctx.beginPath();
-        this.ctx.moveTo(x1, y1);
-        this.ctx.lineTo(x2, y2);
-        this.ctx.lineTo(x3, y3);
-        this.ctx.fill();
-        this.ctx.stroke();
-        this.ctx.closePath();
-    }
+    // drawTriangle(x1, y1, x2, y2, x3, y3) {
+    //     this.ctx.strokeStyle = this.color.value;
+    //     this.ctx.beginPath();
+    //     this.ctx.moveTo(x1, y1);
+    //     this.ctx.lineTo(x2, y2);
+    //     this.ctx.lineTo(x3, y3);
+    //     this.ctx.fill();
+    //     this.ctx.stroke();
+    //     this.ctx.closePath();
+    // }
 
-    drawCircle(x, y, radius) {
-        this.ctx.strokeStyle = this.color.value;
-        this.ctx.beginPath();
-        this.ctx.arc(x, y, radius, 0, 2 * Math.PI);
-        this.ctx.fill();
-        this.ctx.stroke();
-    }
+    // drawCircle(x, y, radius) {
+    //     this.ctx.strokeStyle = this.color.value;
+    //     this.ctx.beginPath();
+    //     this.ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    //     this.ctx.fill();
+    //     this.ctx.stroke();
+    // }
 
     drawLine(x1, y1, x2, y2) {
-        this.ctx.beginPath();
 
         if(this.isMode.gum){
             console.log("coucou")
             this.ctx.strokeStyle = "#FFFFFF";
         }
+        this.ctx.beginPath();
         this.ctx.strokeStyle = this.color.value;
-
         this.ctx.lineWidth = this.lineWidth;
         this.ctx.lineCap = "round";
         this.ctx.moveTo(x1, y1);
         this.ctx.lineTo(x2, y2);
         this.ctx.stroke();
         this.ctx.closePath();
+        return this;
     }
 
     drawText() {
@@ -252,13 +228,13 @@ class Test {
 
 ////////////////////////////// FONCTION RESIZE /////////////////////////////////
 
-resizeCanvas() {
-    this.width = window.innerWidth * 0.8;
-    this.height = window.innerHeight * 0.8;
-    this.canvas.innerHTML = `
-        <canvas id="feuille" width="${this.width}" height="${this.height}"></canvas>
-        `
-    }
+// resizeCanvas() {
+//     this.width = window.innerWidth * 0.8;
+//     this.height = window.innerHeight * 0.8;
+//     this.canvas.innerHTML = `
+//         <canvas id="feuille" width="${this.width}" height="${this.height}"></canvas>
+//         `
+//     }
 
 }
 
