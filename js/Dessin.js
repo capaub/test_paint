@@ -148,7 +148,7 @@ class Draw {
         if (this.isTextMode) {
             addEventListener('keydown', e => {
                 if (e.key === 'Enter') {
-                    removeEventListener('keydown',event);
+                    EventTarget.bind.removeEventListener;
                     this.isTextMode = false;
                     this.ctx.font = '48px sans-serif';
                     this.ctx.fillText(this.text, this.currentPos.x, this.currentPos.y);
@@ -157,7 +157,7 @@ class Draw {
                 } else {
                     this.text += e.key
                 }
-            });
+            }, noneOnce);
         }
     }
 

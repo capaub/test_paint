@@ -4,22 +4,7 @@
 class Test {
     constructor(){
 
-        this.drawMode = {
-            pen : this.drawLine(this.startPos.x, this.startPos.y, this.currentPos.x, this.currentPos.y),
-            text : this.drawText,
-            // rectangle : this.drawRectangle,
-            // circle : this.drawCircle,
-            // triangle : this.drawTriangle,
-        }
 
-        this.isMode = {
-            gum : false,
-            pen : false,
-            text : false,
-            // rectangle : false,
-            // circle : false,
-            // triangle : false,
-        }
 
         this.sheet = document.querySelector("#sheet");
         this.ctx = this.sheet.getContext("2d");
@@ -32,8 +17,8 @@ class Test {
 
         this.canvas = document.getElementById("areaDraw");
 
-        this.startPos = {x: 0, y: 0};
         this.currentPos = {x: 0, y: 0};
+        this.startPos = {x: 0, y: 0};
         // this.firstPos = {x:0, y: 0};
         // this.secondPos = {x: 0, y: 0};
 
@@ -47,19 +32,41 @@ class Test {
         this.sheet.addEventListener('mousemove', event => this.moveDrawing(event));
 
         this.sheet.addEventListener('mouseup', event => this.stopDrawing(event));
+
         this.sheet.addEventListener('mouseout', this.stopDrawing.bind(this));
+
+        this.drawMode = {
+            pen : this.drawLine(this.startPos.x, this.startPos.y, this.currentPos.x, this.currentPos.y),
+            text: this.drawText,
+            // rectangle : this.drawRectangle,
+            // circle : this.drawCircle,
+            // triangle : this.drawTriangle,
+        }
+
+        this.isMode = {
+            gum : false,
+            pen : false,
+            text : false,
+            // rectangle : false,
+            // circle : false,
+            // triangle : false,
+        }
     }
+
     // => stock les coordonne de depart
     downDrawing(e){
+        console.log("downdrawing");
         switch (this.isMode) {
             case this.isMode.gum:
+                console.log("downdrawing.gum");
                 this.drawMode.gum();
                 break;
             case this.isMode.pen:
-                this.startPos.x = e.offsetX;
-                this.startPos.y = e.offsetY;
+                console.log("downdrawing.pen");
+                this.drawMode.pen;
                 break;
             case this.isMode.text:
+                console.log("downdrawing.text");
                 this.drawMode.text();
                 break;
             // case this.isMode.rectangle:
@@ -72,22 +79,26 @@ class Test {
             //     this.drawMode.triangle();
             //     break;
             default:
+                console.log("coucou ca marche pas !");
         }
     }
 
     // => utilise les differentes fonctions switch case true / false
     moveDrawing(e) {
 
-        switch (true) {
+        switch (this.isMode) {
             case this.isMode.gum:
+                console.log("downdrawing.gum")
                 this.drawMode.gum();
                 break;
             case this.isMode.pen:
+                console.log("downdrawing.pen")
                 this.currentPos.x = e.offsetX;
                 this.currentPos.y = e.offsetY;
                 this.drawMode.pen();
                 break;
             case this.isMode.text:
+                console.log("downdrawing.text")
                 this.drawMode.text();
                 break;
             // case this.isMode.rectangle:
@@ -100,20 +111,23 @@ class Test {
             //     this.drawMode.triangle();
             //     break;
             default:
+                console.log("coucou ca marche pas !");
         }
     }
     // => stop le trait mais ne sort pas du mode
     stopDrawing(e) {
-        this.drawLine(this.currentPos.x, this.currentPos.y, e.offsetX, e.offsetY);
-        this.isMode.pen = false;
-        switch (true) {
+        console.log("stopdrawing")
+        switch (this.isMode) {
             case this.isMode.gum:
+                console.log("downdrawing.gum")
                 this.drawMode.gum();
                 break;
             case this.isMode.pen:
+                console.log("downdrawing.pen")
                 this.drawMode.pen();
                 break;
             case this.isMode.text:
+                console.log("downdrawing.text")
                 this.drawMode.text();
                 break;
             // case this.isMode.rectangle:
@@ -126,6 +140,7 @@ class Test {
             //     this.drawMode.triangle();
             //     break;
             default:
+                console.log("coucou ca marche pas !");
         }
 
 
@@ -194,10 +209,10 @@ class Test {
 
     drawLine(x1, y1, x2, y2) {
 
-        if(this.isMode.gum){
-            console.log("coucou")
-            this.ctx.strokeStyle = "#FFFFFF";
-        }
+        // if(this.isMode.gum){
+        //     console.log("coucou")
+        //     this.ctx.strokeStyle = "#FFFFFF";
+        // }
         this.ctx.beginPath();
         this.ctx.strokeStyle = this.color.value;
         this.ctx.lineWidth = this.lineWidth;

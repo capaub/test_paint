@@ -1,7 +1,7 @@
 // Création de mon objet canvas de la classe Dessin
 
-let test = new Test("#sheet");
-// let test = new Draw("#sheet");
+// let test = new Test("#sheet");
+let test = new Draw("#sheet");
 // let test = new Dessin("#sheet");
 
 // Déclaration des fonctions
