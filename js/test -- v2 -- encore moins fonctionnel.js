@@ -35,6 +35,7 @@ class Test {
 
         this.sheet.addEventListener('mouseout', this.stopDrawing.bind(this));
 
+
         this.drawMode = {
             pen : this.drawLine(this.startPos.x, this.startPos.y, this.currentPos.x, this.currentPos.y),
             text: this.drawText,

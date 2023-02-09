@@ -13,6 +13,7 @@ class Draw {
         console.log(this.color.value);
 
         this.currentPos = {x: 0, y: 0};
+
         this.isDrawing = false;
         this.isTextMode = false;
         this.isGumMode = false;
@@ -22,15 +23,13 @@ class Draw {
         this.startX = 0;
         this.startY = 0;
 
-
         this.lineWidth = 2;
-
 
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.canvas = document.getElementById("areaDraw");
 
-        //Ecoute les différents événement de l'utilisateur pour dessiner
+        //Ecoute les différents événement de l'utilisateur pour dessiner -- deux facon d'écrir la même chose BIND ou les 2 "event", en listener et en parametre
 
         this.sheet.addEventListener('mousedown', event => this.downDrawing(event));
 
@@ -94,7 +93,7 @@ class Draw {
             }
         }
     }
-    //  les deux fonction sont identiques => event ? up || out :
+
     upOrOutStopDrawing(e) {
         if (this.isDrawing) {
             this.drawLine(this.currentPos.x, this.currentPos.y, e.offsetX, e.offsetY);
@@ -106,9 +105,10 @@ class Draw {
         this.ctx.beginPath();
 
         if(this.isGumMode){
-            console.log("coucou")
             this.ctx.strokeStyle = "#FFFFFF";
-        }this.ctx.strokeStyle = this.color.value;
+        } else {
+            this.ctx.strokeStyle = this.color.value
+        }
 
         this.ctx.lineWidth = this.lineWidth;
         this.ctx.lineCap = "round";
@@ -118,19 +118,13 @@ class Draw {
         this.ctx.closePath();
     }
 
-    //Fonction pour le changement de couleurs
-
-    // setColor(color = this.color.value){
-    //     return color;
-    // }
-
     //Fonction plus gros trait
 
     upSizing() {
         this.lineWidth++;
     }
 
-    //Fonction plus petit trait 
+    //Fonction plus petit trait
 
     downSizing() {
         this.lineWidth <= 1 ? this.lineWidth = 1 : this.lineWidth--;
@@ -142,6 +136,7 @@ class Draw {
         this.ctx.clearRect(0, 0, innerWidth, innerHeight);
     }
 
+    // ne fonctionne pas comme je veux ! le removeEventListen ne fonctionne pas
     drawText() {
         this.isTextMode = true;
         this.sheet.addEventListener('click', this.position.bind(this));
@@ -157,7 +152,7 @@ class Draw {
                 } else {
                     this.text += e.key
                 }
-            }, noneOnce);
+            }, noneOnce); // option addEventListener
         }
     }
 
